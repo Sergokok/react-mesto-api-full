@@ -1,0 +1,47 @@
+{
+  "name": "express-mesto-gha-review1",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sergokok/express-mesto-gha-review1.git"
+  },
+  "keywords": [],
+  "author": "Nknrw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nknrw/express-mesto-gha-review1/issues"
+  },
+  "homepage": "https://github.com/nknrw/express-mesto-gha-review1#readme",
+  "devDependencies": {
+    "eslint": "^8.24.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "celebrate": "^15.0.1",
+    "config": "^3.3.8",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "express-rate-limit": "^6.6.0",
+    "express-winston": "^4.2.0",
+    "helmet": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.2",
+    "transports": "^1.2.2",
+    "validator": "^13.7.0",
+    "winston": "^3.8.2",
+    "winston-transport": "^4.5.0"
+  }
+}

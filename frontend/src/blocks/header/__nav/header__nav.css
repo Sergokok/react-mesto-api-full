@@ -1,0 +1,5 @@
+.header__nav {
+    margin: 6px 0 0 auto;
+    display: flex;
+    gap: 24px;
+}
