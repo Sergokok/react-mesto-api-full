@@ -30,14 +30,24 @@ export function authorize(email, password) {
     })
         .then(checkResponse);
 }
-
-export function getContent(token) {
-    return fetch(`${baseUrl}/users/me`, {
+// новая функция выхода из аккаунта
+export function logout() {
+    return fetch(`${baseUrl}/logout`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
+        headers,
+        credentials: 'include'
     })
         .then(checkResponse);
 }
+
+// а эта похоже не нужна теперь - неоткуда брать содержимое
+// export function getContent(token) {
+//     return fetch(`${baseUrl}/users/me`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${token}`
+//         }
+//     })
+//         .then(checkResponse);
+// }

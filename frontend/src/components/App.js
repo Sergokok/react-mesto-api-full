@@ -117,7 +117,7 @@ export default function App() {
 		);
 	}
 
-	function closeAllPopups(e) {
+	function closeAllPopups() {
 		setEditAvatarPopupOpen(false);
 		setEditProfilePopupOpen(false);
 		setAddPlacePopupOpen(false);
@@ -170,12 +170,22 @@ export default function App() {
 				});
 		}
 	}
+	// НОВАЯ ФУНКЦИЯ ДЛЯ ВЫХОДА ИЗ АККАУНТА
+    function handleSignOut () {
+        auth
+            .logout()
+            .then(() => {
+                setLoggedIn(false)
+                history.push('/sign-in')
+            })
+            .catch((err) => console.log(err))
+    }
 
-	function handleSignOut() {
-		setLoggedIn(false);
-		localStorage.removeItem('jwt');
-		history.push('/sign-in');
-	}
+	// function handleSignOut() {
+	// 	setLoggedIn(false);
+	// 	localStorage.removeItem('jwt');
+	// 	history.push('/sign-in');
+	// }
 
     return(
 		<CurrentUserContext.Provider value={currentUser}>
@@ -248,4 +258,5 @@ export default function App() {
     )
 
 };
+
 
