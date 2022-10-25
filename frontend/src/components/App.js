@@ -35,7 +35,7 @@ export default function App() {
 	const history = useHistory();
 
 	useEffect(() => {
-		// tokenCheck(); // Проверка токена реперь не нужна, т.к. в ProtectedRoute есть проверка
+		tokenCheck();
 		if (loggedIn) {
 			Promise.all([api.getUserInfo(), api.getInitialCards()])
 				.then(([userData, initialCards]) => {
@@ -156,36 +156,36 @@ export default function App() {
 			});
 	}
 // похоже теперь же проверять не надо
-// 	function tokenCheck() {
-// 		const jwt = localStorage.getItem('jwt');
-// 		if (jwt) {
-// 			auth.getContent(jwt)
-// 				.then((res) => {
-// 					setLoggedIn(true);
-// 					setUserEmail(res.data.email);
-// 					history.push('/');
-// 				})
-// 				.catch((err) => {
-// 					console.log(err);
-// 				});
-// 		}
-// 	}
+	function tokenCheck() {
+		const jwt = localStorage.getItem('jwt');
+		if (jwt) {
+			auth.getContent(jwt)
+				.then((res) => {
+					setLoggedIn(true);
+					setUserEmail(res.data.email);
+					history.push('/');
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+	}
 	// НОВАЯ ФУНКЦИЯ ДЛЯ ВЫХОДА ИЗ АККАУНТА
-    function handleSignOut () {
-        auth
-            .logout()
-            .then(() => {
-                setLoggedIn(false)
-                history.push('/sign-in')
-            })
-            .catch((err) => console.log(err))
-    }
+    // function handleSignOut () {
+    //     auth
+    //         .logout()
+    //         .then(() => {
+    //             setLoggedIn(false)
+    //             history.push('/sign-in')
+    //         })
+    //         .catch((err) => console.log(err))
+    // }
 
-	// function handleSignOut() {
-	// 	setLoggedIn(false);
-	// 	localStorage.removeItem('jwt');
-	// 	history.push('/sign-in');
-	// }
+	function handleSignOut() {
+		setLoggedIn(false);
+		localStorage.removeItem('jwt');
+		history.push('/sign-in');
+	}
 
     return(
 		<CurrentUserContext.Provider value={currentUser}>
