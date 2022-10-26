@@ -28,16 +28,35 @@ const limiter = rateLimit({
 
 const app = express();
 
+const allowedCors = [
+  'https://ТВОЙ ДОМЕН',
+  'http://ТВОЙ ДОМЕН',
+  'https://localhost:3000',
+  'http://localhost:3000',
+];
+
+const corsOptionsDelegate = (req, callback) => {
+  let corsOptions;
+  if (allowedCors.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true, credentials: true };
+  } else {
+    corsOptions = { origin: false, credentials: true };
+  }
+  callback(null, corsOptions);
+};
+
+app.use(cors(corsOptionsDelegate));
+
 // подключаемся к серверу
-app.use(
-  cors({
-    origin: [
-      'https://ТВОЙ ДОМЕН',
-      'http://ТВОЙ ДОМЕН',
-    ],
-    credentials: true,
-  }),
-);
+// app.use(
+//   cors({
+//     origin: [
+//       'https://ТВОЙ ДОМЕН',
+//       'http://ТВОЙ ДОМЕН',
+//     ],
+//     credentials: true,
+//   }),
+// );
 
 app.use(helmet());
 app.use(limiter);
@@ -46,10 +65,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+
 app.use(requestLogger);
 app.use(errorLogger);
 
-// роуты для авторизации выхода
+async function start(req, res, next) {
+  try {
+    await mongoose.connect('mongodb://localhost:27017/mestodb', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    await app.listen(PORT);
+  } catch (err) {
+    next(new ServerError('Ошибка сервера'));
+  }
+}
+start();
+
+// роут для авторизации выхода
 app.get('/logout', logout);
 
 app.post('/signin', celebrate({
@@ -74,12 +107,6 @@ app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
-// вместо этого сделал logout в контроллере users - смотри выше
-// app.get('/sign-out', (req, res) => {
-//   res.clearCookie('jwt');
-//   res.send({ message: 'Куки удалены' });
-// });
-
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден'));
 });
@@ -100,17 +127,3 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
-async function start(req, res, next) {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/mestodb', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    await app.listen(PORT);
-  } catch (err) {
-    next(new ServerError('Ошибка сервера'));
-  }
-}
-
-start();

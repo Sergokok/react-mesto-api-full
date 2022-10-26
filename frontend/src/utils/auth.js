@@ -1,5 +1,5 @@
 const baseUrl = 'https://auth.nomoreparties.co';
-const headers = { 'Content-Type': 'application/json' }
+// const headers = { 'Content-Type': 'application/json' }
 
 function checkResponse(res) {
     if (res.ok) {
