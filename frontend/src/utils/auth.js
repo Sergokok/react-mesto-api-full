@@ -1,6 +1,6 @@
-const baseUrl = 'https://auth.nomoreparties.co';
+// const baseUrl = 'https://auth.nomoreparties.co';
 // const headers = { 'Content-Type': 'application/json' }
-// const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:3000';
 
 function checkResponse(res) {
     if (res.ok) {

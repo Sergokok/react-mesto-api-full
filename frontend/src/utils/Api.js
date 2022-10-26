@@ -90,9 +90,10 @@ class Api {
 
 // Авторизация
 const api = new Api({
-	baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-45',
+	// baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-45',
+	baseUrl: 'http://localhost:3000',
 	headers: {
-		authorization: '62ebdfd5-7936-4ed6-b3c0-2901452931d5',
+		// authorization: '62ebdfd5-7936-4ed6-b3c0-2901452931d5',
 		'Content-Type': 'application/json',
 	},
 });

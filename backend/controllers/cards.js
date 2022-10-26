@@ -62,24 +62,6 @@ module.exports.deleteCard = (req, res, next) => {
 //     .catch(() => next(new ServerError('Произошла ошибка')));
 // };
 
-// module.exports.deleteCard = async (req, res, next) => {
-//   try {
-//     const card = await Card.findByIdAndDelete(req.params.cardId);
-//     if (!card) {
-//       return next(new NotFoundError('Карточка не найдена'));
-//     }
-//     if (card.owner.toString() !== req.user._id) {
-//       return next(new ForbiddenError('Нет прав на удаление карточки'));
-//     }
-//     return res.status(200).send({ card });
-//   } catch (err) {
-//     if (err.name === 'CastError') {
-//       return next(new BadRequestError('Некорректные данные'));
-//     }
-//     return next(new ServerError('Произошла ошибка'));
-//   }
-// };
-
 module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
